@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achievements</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="logo">Achievements</h1>
+      <div class="date-nav">
+        <button class="nav-btn" id="prevDay">‹</button>
+        <button class="date-btn" id="todayBtn">Today</button>
+        <span class="current-date" id="currentDate"></span>
+        <button class="nav-btn" id="nextDay">›</button>
+      </div>
+    </header>
+
+    <!-- Add Achievement Form -->
+    <div class="add-form">
+      <div class="input-group">
+        <input type="text" id="achievementInput" placeholder="What did you accomplish?" autocomplete="off">
+        <select id="categorySelect">
+          <option value="work">Work</option>
+          <option value="personal">Personal</option>
+          <option value="learning">Learning</option>
+          <option value="health">Health</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <button class="add-btn" id="addBtn">Add</button>
+    </div>
+
+    <!-- Achievements List -->
+    <div class="achievements-section">
+      <div class="section-header">
+        <span class="count" id="achievementCount">0 items</span>
+      </div>
+      <div class="achievements-list" id="achievementsList">
+        <!-- Achievements will be rendered here -->
+        <div class="empty-state" id="emptyState">
+          <span class="empty-icon">✓</span>
+          <p>No achievements yet.<br>Start logging your wins.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export Button -->
+    <footer class="footer">
+      <button class="export-btn" id="exportBtn">
+        <span class="export-icon">↓</span>
+        Export PDF
+      </button>
+    </footer>
+  </div>
+
+  <script src="libs/jspdf.umd.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>
