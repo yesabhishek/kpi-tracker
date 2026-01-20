@@ -469,7 +469,7 @@ async function exportToPDF() {
     doc.setFontSize(9);
     doc.setTextColor(...lightGray);
     doc.text(
-      `Achievement Tracker • Page ${i} of ${pageCount}`,
+      `KPI Tracker • Page ${i} of ${pageCount}`,
       105,
       290,
       { align: 'center' }

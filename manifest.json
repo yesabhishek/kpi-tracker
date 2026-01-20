@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Achievement Logger",
-  "version": "1.0.0",
-  "description": "Log your daily achievements and export them as PDF reports",
+  "name": "KPI Tracker",
+  "version": "1.0.1",
+  "description": "A professional productivity tool to track daily achievements and generate performance reports for career growth.",
+  "author": "Abhishek Choudhury",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
