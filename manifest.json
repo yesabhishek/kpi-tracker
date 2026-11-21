@@ -1,23 +1,40 @@
 {
   "manifest_version": 3,
   "name": "KPI Tracker",
-  "version": "1.0.1",
-  "description": "A professional productivity tool to track daily achievements and generate performance reports for career growth.",
+  "version": "2.0.0",
+  "description": "Log your daily wins in seconds and turn them into clean reports for reviews, 1:1s and promotions. Private, offline, no account.",
   "author": "Abhishek Choudhury",
+  "homepage_url": "https://github.com/yesabhishek/kpi-tracker",
+  "minimum_chrome_version": "123",
   "action": {
+    "default_title": "KPI Tracker",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     }
   },
   "icons": {
     "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+K",
+        "mac": "Alt+Shift+K"
+      },
+      "description": "Open KPI Tracker"
+    }
+  },
   "permissions": [
     "storage"
-  ]
+  ],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+  }
 }

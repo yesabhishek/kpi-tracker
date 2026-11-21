@@ -1,188 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <title>KPI Tracker</title>
   <link rel="stylesheet" href="popup.css">
+  <script src="popup.js" defer></script>
 </head>
-
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-top">
-        <h1 class="logo">KPI Tracker</h1>
-        <button class="settings-btn" id="settingsBtn" title="Settings">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="8" r="1.5" fill="currentColor" />
-            <circle cx="8" cy="3" r="1.5" fill="currentColor" />
-            <circle cx="8" cy="13" r="1.5" fill="currentColor" />
-          </svg>
-        </button>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img src="icons/icon32.png" width="18" height="18" alt="">
+        <span>KPI Tracker</span>
       </div>
-      <div class="date-nav">
-        <button class="nav-btn" id="prevDay" title="Previous day">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="searchBtn" type="button" title="Search  /" aria-label="Search all wins">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
         </button>
-        <button class="date-btn" id="todayBtn">Today</button>
-        <span class="current-date" id="currentDate"></span>
-        <button class="nav-btn" id="nextDay" title="Next day">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
+        <button class="icon-btn" id="menuBtn" type="button" title="More" aria-label="More options" aria-haspopup="menu" aria-expanded="false">
+          <svg viewBox="0 0 16 16" aria-hidden="true" class="fill"><circle cx="3" cy="8" r="1.3"/><circle cx="8" cy="8" r="1.3"/><circle cx="13" cy="8" r="1.3"/></svg>
         </button>
       </div>
     </header>
 
-    <!-- Add Achievement Form -->
-    <div class="add-form">
-      <div class="input-row">
-        <input type="text" id="achievementInput" placeholder="What did you accomplish?" autocomplete="off">
-      </div>
-      <div class="form-actions">
-        <select id="categorySelect">
-          <option value="work">Work</option>
-          <option value="personal">Personal</option>
-          <option value="learning">Learning</option>
-          <option value="health">Health</option>
-          <option value="other">Other</option>
-        </select>
-        <button class="add-btn" id="addBtn">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          Add
-        </button>
-      </div>
-    </div>
-
-    <!-- Achievements List -->
-    <div class="achievements-section">
-      <div class="section-header">
-        <span class="section-title">Today's Wins</span>
-        <span class="count" id="achievementCount">0 items</span>
-      </div>
-      <div class="achievements-list" id="achievementsList">
-        <!-- Achievements will be rendered here -->
-        <div class="empty-state" id="emptyState">
-          <div class="empty-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" />
-              <path d="M18 24L22 28L30 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
+    <!-- Day view -->
+    <main class="view" id="dayView">
+      <section class="page-head">
+        <div class="date-row">
+          <label class="date-title" title="Pick a date">
+            <span id="dateTitle">Today</span>
+            <input type="date" id="datePicker" aria-label="Pick a date">
+          </label>
+          <div class="day-nav">
+            <button class="icon-btn" id="prevDay" type="button" title="Previous day  ←" aria-label="Previous day">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 12L6 8l4-4"/></svg>
+            </button>
+            <button class="text-btn" id="todayBtn" type="button" title="Jump to today  T">Today</button>
+            <button class="icon-btn" id="nextDay" type="button" title="Next day  →" aria-label="Next day">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg>
+            </button>
           </div>
-          <p class="empty-title">No achievements yet</p>
-          <p class="empty-subtitle">Start logging your wins for today</p>
         </div>
-      </div>
-    </div>
+        <p class="date-sub" id="dateSub"></p>
 
-    <!-- Footer -->
+        <dl class="props">
+          <div class="prop">
+            <dt><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="3" width="11" height="10.5" rx="1.5"/><path d="M2.5 6.5h11M5.5 1.5v3M10.5 1.5v3"/></svg>This week</dt>
+            <dd id="statWeek">0</dd>
+          </div>
+          <div class="prop">
+            <dt><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c.5 2.5 3.5 4 3.5 7.5a3.5 3.5 0 0 1-7 0c0-1.6.8-2.7 1.6-3.5.2 1.2.8 2 1.6 2.3C7.4 5.6 7.4 3.4 8 1.5z"/></svg>Streak</dt>
+            <dd id="statStreak">0 days</dd>
+          </div>
+          <div class="prop">
+            <dt><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 13.5h11M4.5 11V8M8 11V4.5M11.5 11V6.5"/></svg>All time</dt>
+            <dd id="statTotal">0</dd>
+          </div>
+        </dl>
+      </section>
+
+      <form class="composer" id="addForm" autocomplete="off">
+        <svg class="composer-plus" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg>
+        <input type="text" id="entryInput" maxlength="500" placeholder="Log a win, press Enter…" aria-label="New win" spellcheck="true">
+        <select class="tag tag-select" id="categorySelect" aria-label="Category"></select>
+      </form>
+
+      <ul class="entries" id="entryList" aria-label="Wins for this day"></ul>
+
+      <div class="empty" id="emptyState">
+        <p class="empty-title">Nothing logged yet</p>
+        <p class="empty-sub">Shipped a feature, unblocked a teammate, learned something new? Write it down while it's fresh.</p>
+      </div>
+    </main>
+
+    <!-- Search view -->
+    <main class="view" id="searchView" hidden>
+      <div class="search-bar">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+        <input type="search" id="searchInput" placeholder="Search all wins…" aria-label="Search all wins" maxlength="100">
+        <button class="text-btn" id="searchClose" type="button">Done</button>
+      </div>
+      <div class="search-filters" id="searchFilters" role="group" aria-label="Filter by category"></div>
+      <div class="search-results" id="searchResults" aria-live="polite"></div>
+    </main>
+
     <footer class="footer">
-      <button class="export-btn" id="exportBtn">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 2V10M8 10L5 7M8 10L11 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round" />
-          <path d="M2 12V13C2 13.5523 2.44772 14 3 14H13C13.5523 14 14 13.5523 14 13V12" stroke="currentColor"
-            stroke-width="1.5" stroke-linecap="round" />
-        </svg>
+      <span class="footer-note">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>
+        Stored only on this device
+      </span>
+      <button class="btn btn-primary" id="exportBtn" type="button">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M2.5 11.5v1a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/></svg>
         Export
-        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
       </button>
     </footer>
   </div>
 
-  <!-- Export Modal -->
-  <div class="modal-overlay" id="exportModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 class="modal-title">Export Achievements</h2>
-        <button class="modal-close" id="modalClose">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-          </svg>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <!-- Date Range Selection -->
-        <div class="form-group">
-          <label class="form-label">Date Range</label>
-          <div class="radio-group">
-            <label class="radio-option">
-              <input type="radio" name="dateRange" value="today" checked>
-              <span class="radio-label">Today</span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="dateRange" value="week">
-              <span class="radio-label">This Week</span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="dateRange" value="month">
-              <span class="radio-label">This Month</span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="dateRange" value="all">
-              <span class="radio-label">All Time</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Export Preview -->
-        <div class="export-preview" id="exportPreview">
-          <span class="preview-count" id="previewCount">0</span>
-          <span class="preview-label">achievements to export</span>
-        </div>
-
-        <!-- Format Selection -->
-        <div class="form-group">
-          <label class="form-label">Format</label>
-          <div class="format-buttons">
-            <button class="format-btn active" data-format="csv">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5" />
-                <path d="M2 6H14M6 6V14" stroke="currentColor" stroke-width="1.5" />
-              </svg>
-              CSV
-            </button>
-            <button class="format-btn" data-format="pdf">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 2H10L13 5V14H4V2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                <path d="M10 2V5H13" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-              </svg>
-              PDF
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn-secondary" id="cancelExport">Cancel</button>
-        <button class="btn-primary" id="confirmExport">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1V9M7 9L4 6M7 9L10 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path d="M1 10V12C1 12.5523 1.44772 13 2 13H12C12.5523 13 13 12.5523 13 12V10" stroke="currentColor"
-              stroke-width="1.5" stroke-linecap="round" />
-          </svg>
-          Export
-        </button>
-      </div>
+  <!-- More menu -->
+  <div class="menu" id="menu" role="menu" hidden>
+    <div class="menu-label">Appearance</div>
+    <div class="segmented" id="themeSwitch" role="group" aria-label="Theme">
+      <button type="button" data-theme="system">System</button>
+      <button type="button" data-theme="light">Light</button>
+      <button type="button" data-theme="dark">Dark</button>
     </div>
+    <div class="menu-sep"></div>
+    <button class="menu-item" type="button" role="menuitem" id="backupBtn">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M2.5 11.5v1a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/></svg>
+      Back up data
+    </button>
+    <button class="menu-item" type="button" role="menuitem" id="restoreBtn">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M2.5 11.5v1a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1"/></svg>
+      Restore from backup…
+    </button>
+    <div class="menu-sep"></div>
+    <button class="menu-item" type="button" role="menuitem" id="shortcutBtn">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="4" width="13" height="8.5" rx="1.5"/><path d="M4 7h.01M6.5 7h.01M9 7h.01M11.5 7h.01M5 10h6"/></svg>
+      Keyboard shortcut
+      <kbd id="shortcutKey">Alt+Shift+K</kbd>
+    </button>
+    <a class="menu-item" role="menuitem" href="https://github.com/yesabhishek/kpi-tracker/blob/main/PRIVACY_POLICY.md" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l5.5 2v4c0 3.5-2.5 6-5.5 7-3-1-5.5-3.5-5.5-7v-4z"/></svg>
+      Privacy policy
+    </a>
   </div>
 
-  <script src="libs/jspdf.umd.min.js"></script>
-  <script src="popup.js"></script>
-</body>
+  <!-- Export dialog -->
+  <dialog class="dialog" id="exportDialog" aria-labelledby="exportTitle">
+    <form method="dialog" class="dialog-inner" id="exportForm">
+      <header class="dialog-head">
+        <h2 id="exportTitle">Export</h2>
+        <button class="icon-btn" type="submit" value="cancel" aria-label="Close">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </button>
+      </header>
 
+      <fieldset class="field">
+        <legend>Range</legend>
+        <div class="options" id="rangeOptions"></div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Format</legend>
+        <div class="segmented wide" id="formatSwitch" role="group" aria-label="Format">
+          <button type="button" data-format="pdf">PDF</button>
+          <button type="button" data-format="csv">CSV</button>
+          <button type="button" data-format="md">Markdown</button>
+        </div>
+      </fieldset>
+
+      <p class="export-summary" id="exportSummary"></p>
+
+      <footer class="dialog-foot">
+        <button class="btn" type="button" id="copyBtn" title="Copy as Markdown — paste into docs, Slack or review forms">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="1.5"/><path d="M11 5V3.5a1 1 0 0 0-1-1H3.5a1 1 0 0 0-1 1V10a1 1 0 0 0 1 1H5"/></svg>
+          Copy
+        </button>
+        <button class="btn btn-primary" type="button" id="downloadBtn">Download</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <input type="file" id="restoreInput" accept="application/json,.json" hidden>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toastText"></span>
+    <button type="button" class="toast-action" id="toastAction" hidden>Undo</button>
+  </div>
+</body>
 </html>
