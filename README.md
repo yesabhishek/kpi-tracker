@@ -4,7 +4,7 @@ A calm, minimalist Chrome extension for logging your daily wins and turning them
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green) ![License](https://img.shields.io/badge/License-MIT-blue)
 
-![KPI Tracker](store/screenshot-1.png)
+![KPI Tracker](store/screenshots/1-log-wins.png)
 
 ## Features
 
@@ -31,26 +31,19 @@ manifest.json         Extension config (MV3, strict CSP, storage permission only
 popup.html/.css/.js   The whole app. No framework, no build step
 libs/jspdf.umd.min.js jsPDF 4.2.1, lazy-loaded only when exporting a PDF
 icons/                Toolbar and store icons (16/32/48/128)
-store/                Chrome Web Store screenshots, promo tiles, 512px icon
+store/                Chrome Web Store upload kit: zip, icons, screenshots, promo tiles, LISTING.md
 tools/                Scripts to render icons and store assets and package the zip
 ```
 
 ## Releasing
 
 ```bash
-./tools/package.sh         # -> dist/kpi-tracker-<version>.zip (only runtime files)
+./tools/package.sh         # -> store/package/kpi-tracker-<version>.zip (only runtime files)
 ./tools/render-icons.sh    # regenerate icons from tools/icon*.svg
 ./tools/render-store.sh    # regenerate store/ screenshots (needs Google Chrome)
 ```
 
-Upload the zip in the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/) and use the images in `store/`:
-
-| Asset | File | Size |
-| --- | --- | --- |
-| Screenshots | `store/screenshot-1.png` … `screenshot-5.png` | 1280×800 |
-| Small promo tile | `store/promo-small.png` | 440×280 |
-| Marquee promo tile | `store/promo-marquee.png` | 1400×560 |
-| Store icon | `icons/icon128.png` | 128×128 |
+Everything for the Chrome Web Store (zip, icon, screenshots, promo tiles and copy-paste listing text) is in [`store/`](store/LISTING.md). Follow [store/LISTING.md](store/LISTING.md) tab by tab.
 
 **Privacy practices answers:** single purpose is "log personal achievements and export reports". The `storage` permission saves entries locally. No user data is collected or transmitted, and no remote code is used.
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Renders Chrome Web Store assets into store/ using headless Chrome.
-#   store/screenshot-{1..5}.png   1280x800
-#   store/promo-small.png         440x280
-#   store/promo-marquee.png       1400x560
+#   store/screenshots/*.png             1280x800
+#   store/promo/small-tile-440x280.png  440x280
+#   store/promo/marquee-1400x560.png    1400x560
 set -euo pipefail
 cd "$(dirname "$0")/.."
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
@@ -19,8 +19,12 @@ shoot() { # shot width height out
     "http://127.0.0.1:$PORT/tools/shots.html?shot=$1" >/dev/null 2>&1
 }
 
-mkdir -p store
-for i in 1 2 3 4 5; do shoot "$i" 1280 800 "store/screenshot-$i.png"; done
-shoot tile 440 280 store/promo-small.png
-shoot marquee 1400 560 store/promo-marquee.png
+mkdir -p store/screenshots store/promo
+shoot 1 1280 800 store/screenshots/1-log-wins.png
+shoot 2 1280 800 store/screenshots/2-search.png
+shoot 3 1280 800 store/screenshots/3-export-reports.png
+shoot 4 1280 800 store/screenshots/4-dark-mode.png
+shoot 5 1280 800 store/screenshots/5-private.png
+shoot tile 440 280 store/promo/small-tile-440x280.png
+shoot marquee 1400 560 store/promo/marquee-1400x560.png
 echo "store assets rendered"
