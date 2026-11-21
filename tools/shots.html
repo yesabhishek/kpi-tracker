@@ -41,6 +41,8 @@
   /* promo tiles */
   body.tile { width: 440px; height: 280px; }
   body.marquee { width: 1400px; height: 560px; }
+  body.demo { width: 1024px; height: 640px; }
+  body.demo .frame { right: auto; left: 50%; transform: translate(-50%, -50%) scale(1.02); }
 </style>
 </head>
 <body>
@@ -101,7 +103,7 @@
   push(t, 'learning', 'Finished the replication chapter of Designing Data-Intensive Applications', 10, 40);
   push(t, 'work', 'Unblocked the payments migration by pairing with Priya for an hour', 13, 15);
   push(t, 'leadership', 'Led sprint retro and agreed on 3 process fixes with the team', 15, 30);
-  push(t, 'work', 'Shipped the new onboarding flow — activation up 12% in week one', 17, 45);
+  if (shot !== 'demo') push(t, 'work', 'Shipped the new onboarding flow — activation up 12% in week one', 17, 45);
 
   const theme = shot === '4' ? 'dark' : 'light';
   localStorage.clear();
@@ -139,6 +141,11 @@
     }
   };
 
+  if (shot === 'demo') {
+    document.body.className = 'demo';
+    document.body.innerHTML = '<div class="frame"><iframe id="app" src="../popup.html"></iframe></div>';
+    return; // driven by an external recorder
+  }
   if (shot === 'tile' || shot === 'marquee') {
     document.body.className = shot;
     const big = shot === 'marquee';

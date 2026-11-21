@@ -4,7 +4,11 @@ A calm, minimalist Chrome extension for logging your daily wins and turning them
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green) ![License](https://img.shields.io/badge/License-MIT-blue)
 
-![KPI Tracker](store/screenshots/1-log-wins.png)
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/ajfoelcolcgemelfacofjbfbpcfkaloo"><b>Install from the Chrome Web Store</b></a>
+</p>
+
+![KPI Tracker demo: logging a win, searching, exporting and switching to dark mode](docs/demo.gif)
 
 ## Features
 
@@ -17,6 +21,14 @@ A calm, minimalist Chrome extension for logging your daily wins and turning them
 - **Light & dark**: follows your system theme, or you can pick one.
 - **Keyboard-first**: `Alt+Shift+K` opens the popup, `/` opens search, `←`/`→` change day, `T` jumps to today, `N` focuses the input.
 - **Private**: no account, no network requests, no analytics. Data lives in `chrome.storage.local`.
+
+## Screenshots
+
+| | |
+| --- | --- |
+| ![Log your wins](store/screenshots/1-log-wins.png) | ![Search every win](store/screenshots/2-search.png) |
+| ![Review-ready reports](store/screenshots/3-export-reports.png) | ![Dark mode](store/screenshots/4-dark-mode.png) |
+| ![Private by design](store/screenshots/5-private.png) | |
 
 ## Install (development)
 
@@ -31,6 +43,7 @@ manifest.json         Extension config (MV3, strict CSP, storage permission only
 popup.html/.css/.js   The whole app. No framework, no build step
 libs/jspdf.umd.min.js jsPDF 4.2.1, lazy-loaded only when exporting a PDF
 icons/                Toolbar and store icons (16/32/48/128)
+docs/                 README demo GIF
 store/                Chrome Web Store upload kit: zip, icons, screenshots, promo tiles, LISTING.md
 tools/                Scripts to render icons and store assets and package the zip
 ```
