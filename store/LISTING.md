@@ -5,7 +5,7 @@ Copy-paste values for each tab of the Developer Dashboard, in the order to do th
 ```
 store/
 ├── LISTING.md                         ← this file
-├── package/kpi-tracker-2.0.0.zip      ← Package tab
+├── package/kpi-tracker-2.0.1.zip      ← Package tab
 ├── icon/store-icon-128.png            ← Store listing → Store icon
 ├── screenshots/                       ← Store listing → Screenshots (upload in order 1→5)
 │   ├── 1-log-wins.png                 1280×800
@@ -22,7 +22,7 @@ store/
 
 ## 1. Package tab (do this first)
 
-**Upload new package** → `store/package/kpi-tracker-2.0.0.zip`
+**Upload new package** → `store/package/kpi-tracker-2.0.1.zip`
 
 The title and summary on the Store listing tab come from the package, so they only update after this upload.
 
@@ -30,7 +30,7 @@ The title and summary on the Store listing tab come from the package, so they on
 | --- | --- |
 | Title from package | KPI Tracker |
 | Summary from package | Log your daily wins in seconds and turn them into clean reports for reviews, 1:1s and promotions. Private, offline, no account. |
-| Version | 2.0.0 |
+| Version | 2.0.1 |
 
 The update adds no new permissions (still only `storage`), so existing users get it silently with no re-approval prompt.
 
